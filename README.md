@@ -12,3 +12,7 @@ I've included a rake task that lets you create a newsletter automatically. Run `
 
 Since this isn't a blog, you can push changes as much as you want. Commit the changes you've been working on, then `git push` to Github. 
 
+## Pulling
+
+Sometimes, other people might work on the newsletter as well. If so, do a `git pull` of the changes so that you can work on the most recent changes. 
+
