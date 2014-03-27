@@ -16,3 +16,7 @@ Since this isn't a blog, you can push changes as much as you want. Commit the ch
 
 Sometimes, other people might work on the newsletter as well. If so, do a `git pull` of the changes so that you can work on the most recent changes. 
 
+## Markdown
+
+Markdown makes writing HTML easier and more intuitive. Check [this](https://daringfireball.net/projects/markdown/basics) out to get an overview of the Markdown syntax.
+
