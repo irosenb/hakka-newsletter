@@ -18,5 +18,4 @@ Sometimes, other people might work on the newsletter as well. If so, do a `git p
 
 ## Markdown
 
-Markdown makes writing HTML easier and more intuitive. Check [this](https://daringfireball.net/projects/markdown/basics) out to get an overview of the Markdown syntax.
 
