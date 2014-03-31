@@ -1,7 +1,7 @@
 module Jekyll
   class TableConverters < Converter
     def matches(ext)
-      ext =~ /markdown/i
+      ext =~ /markdown/
     end
 
     def output_ext(ext)
