@@ -16,6 +16,9 @@ module Jekyll
       h2s.wrap("<tr></tr>")
       convert_h2s(h2s)
 
+      text = doc.css('p, h2')
+      convert_text(text)
+
       doc.inner_html
     end
 
@@ -38,8 +41,15 @@ module Jekyll
     def convert_h2s(h2s)
       h2s.map do |h2|
         # h2.replace("<tr>#{h2.to_html}</tr>")
-        h2.name = "td"
+        # h2.name = "td"
         h2['style'] = "font-size:20px;color:#20b6fb;padding:10px 0px 17px 22px;font-weight:bold;line-height:22px;"
+      end
+    end
+
+    def convert_text(text)
+      text.map do |p|
+        p.name = "span"
+        p['style'] = "font-size:14px;color:#444444;font-weight:normal;"
       end
     end
 

@@ -10,7 +10,7 @@ module Jekyll
       document = Nokogiri::HTML::DocumentFragment.parse ""
       Nokogiri::HTML::Builder.with(document) do |doc|
         doc.span(:style => "color:grey;font-size:12px;font-weight:normal;") {
-          doc.text "#{time}"
+          doc.text "#{time} mins"
         }
         doc.br
       end
