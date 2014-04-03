@@ -6,4 +6,4 @@ categories:
 ---
 # Big Data 
 
-## [Q Data Language]("http://www.q-lang.io")
+## [Q Data Language]({{ "http://www.q-lang.io" | reading_time }})
