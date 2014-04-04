@@ -16,6 +16,9 @@ Since this isn't a blog, you can push changes as much as you want. Commit the ch
 
 Sometimes, other people might work on the newsletter as well. If so, do a `git pull` of the changes so that you can work on the most recent changes. 
 
-## Markdown
+# Writing
 
+## Reading time
+
+For convienence, I've included a filter that retrieves the reading time of an article. All you have to do is write `{{ "YOUR_LINK" | reading_time }}`, putting a link inside the quotes. It must be on the same line as the h2 link.   
 
