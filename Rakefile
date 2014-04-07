@@ -34,7 +34,7 @@ task :new_newsletter, :title do |t, args|
   if args.title
     title = args.title
   else
-    title = get_stdin("Enter a title for your newsletter: ")
+    title = get_stdin("Enter the issue # for your newsletter: ")
   end
   mkdir_p "#{posts_dir}"
   filename = "#{posts_dir}/#{Time.now.strftime('%Y-%m-%d')}-#{title.to_url}.#{new_post_ext}"
