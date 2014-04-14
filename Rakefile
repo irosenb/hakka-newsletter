@@ -7,7 +7,7 @@ require 'date'
 require 'yaml'
 require 'tmpdir'
 require 'jekyll'
-
+require "createsend"
 
 ## -- Misc Configs -- ##
 
@@ -54,44 +54,6 @@ task :new_newsletter, :title do |t, args|
 end
 
 # usage rake new_page[my-new-page] or rake new_page[my-new-page.html] or rake new_page (defaults to "new-page.markdown")
-desc "Create a new page in #{source_dir}/(filename)/index.#{new_page_ext}"
-task :new_page, :filename do |t, args|
-  raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
-  args.with_defaults(:filename => 'new-page')
-  page_dir = [source_dir]
-  if args.filename.downcase =~ /(^.+\/)?(.+)/
-    filename, dot, extension = $2.rpartition('.').reject(&:empty?)         # Get filename and extension
-    title = filename
-    page_dir.concat($1.downcase.sub(/^\//, '').split('/')) unless $1.nil?  # Add path to page_dir Array
-    if extension.nil?
-      page_dir << filename
-      filename = "index"
-    end
-    extension ||= new_page_ext
-    page_dir = page_dir.map! { |d| d = d.to_url }.join('/')                # Sanitize path
-    filename = filename.downcase.to_url
-
-    mkdir_p page_dir
-    file = "#{page_dir}/#{filename}.#{extension}"
-    if File.exist?(file)
-      abort("rake aborted!") if ask("#{file} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
-    end
-    puts "Creating new page: #{file}"
-    open(file, 'w') do |page|
-      page.puts "---"
-      page.puts "layout: page"
-      page.puts "title: \"#{title}\""
-      page.puts "date: #{Time.now.strftime('%Y-%m-%d %H:%M')}"
-      page.puts "comments: true"
-      page.puts "sharing: true"
-      page.puts "footer: true"
-      page.puts "---"
-    end
-    `open -a Mou #{file}`
-  else
-    puts "Syntax error: #{args.filename} contains unsupported characters"
-  end
-end
 
 desc "Generate blog files"
 task :generate do
@@ -102,18 +64,25 @@ task :generate do
 end
 
 
-desc "Generate and publish blog to gh-pages"
+desc "Generate and publish newsletter to Campaign Monitor"
 task :publish => [:generate] do
-  Dir.mktmpdir do |tmp|
-    cp_r "_site/.", tmp
-    Dir.chdir tmp
-    system "git init"
-    system "git add ."
-    message = "Site updated at #{Time.now.utc}"
-    system "git commit -m #{message.inspect}"
-    system "git remote add origin git@github.com:#{GITHUB_REPONAME}.git"
-    system "git push origin master:refs/heads/gh-pages --force"
-  end
+  # Dir.mktmpdir do |tmp|
+  #   cp_r "_site/.", tmp
+  #   Dir.chdir tmp
+  #   system "git init"
+  #   system "git add ."
+  #   message = "Site updated at #{Time.now.utc}"
+  #   system "git commit -m #{message.inspect}"
+  #   system "git push"
+
+  #   email = CreateSend::CreateSend.new :api_key => 'ce42622c21e8b440b423219ce0210d8f'
+  #   puts email.clients
+  # end
+
+  auth = {:api_key => 'ce42622c21e8b440b423219ce0210d8f'}
+  email = CreateSend::Client.new auth, '72d43a277643e60540064224a9e4e9ad'
+   
+  puts email.campaigns 
 end
 
 def ok_failed(condition)
